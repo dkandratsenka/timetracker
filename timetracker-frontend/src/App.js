@@ -1,10 +1,16 @@
 import React, { Component } from 'react';
 import Main from "./components/MainComponent";
+import {Provider} from "react-redux";
+import {configureStore} from "./redux/configureStorage";
+
+const store = configureStore();
 
 class App extends Component {
   render() {
     return (
-      <Main />
+      <Provider store={store}>
+        <Main />
+      </Provider>
     );
   }
 }
