@@ -3,34 +3,25 @@ package by.ts.tt.service.impl;
 import by.ts.tt.entiry.User;
 import by.ts.tt.repository.UserRepository;
 import by.ts.tt.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
-import java.util.List;
 import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
 
-    @Resource
+    @Autowired
     private UserRepository userRepository;
 
     @Override
     public User addUser(User user) {
-        User saveUser = userRepository.save(user);
+        User saveUser = userRepository.saveAndFlush(user);
         return saveUser;
     }
 
     @Override
-    public Optional<User> getUserById(int id) {
+    public Optional<User> getUserById(Long id) {
         return userRepository.findById(id);
     }
-
-    @Override
-    public List<User> getListUsers(int page) {
-        List<User> list = userRepository.getListUsers(page);
-        return list;
-    }
-
-
 }

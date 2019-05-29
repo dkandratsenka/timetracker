@@ -1,25 +1,21 @@
 package by.ts.tt.entiry;
 
 import javax.persistence.*;
-import java.io.Serializable;
-import java.util.Objects;
-
-import static by.ts.tt.utilities.UserTableConstants.*;
 
 @Entity
-@Table(name = USER_TABLE)
-public class User implements Serializable {
+@Table(name = "users")
+public class User {
 
     @Id
-    @Column(name = USER_ID)
+    @Column(name = "u_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = USER_NAME)
+    @Column(name = "u_name")
     private String name;
 
 
-    @Column(name = USER_VACATION)
+    @Column(name = "u_vacation")
     private int vacation;
 
     public int getId() {
@@ -34,35 +30,15 @@ public class User implements Serializable {
         return vacation;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
 
     public void setVacation(int vacation) {
         this.vacation = vacation;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
-        return id == user.id &&
-                vacation == user.vacation &&
-                name.equals(user.name);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, name, vacation);
-    }
-
-    @Override
-    public String toString() {
-        return "{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", vacation=" + vacation +
-                '}';
     }
 }
