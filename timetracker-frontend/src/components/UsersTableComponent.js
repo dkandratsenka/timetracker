@@ -1,6 +1,6 @@
 import React, {Component} from "react"
 import ReactTable from 'react-table'
-import { COLUMN_NAME, COLUMN_NUMBER, COLUMN_CHECKBOX } from "../utility/constant";
+import { COLUMN_NAME, COLUMN_NUMBER, COLUMN_CHECKBOX } from "../utility/userColumnName";
 import {Input} from "reactstrap";
 
 class UsersTable extends Component {
@@ -13,11 +13,17 @@ class UsersTable extends Component {
 
     }
 
+    static getDerivedStateFromProps(nextProps,prevState){
+      if(nextProps.users !== prevState.users)
+        return {users: nextProps.users}
+      return null;
+    }
+
     render(){
          
       const columns = [{
         Header: COLUMN_NAME,
-        accessor: COLUMN_NAME
+        accessor: COLUMN_NAME,
       }, {
         Header: COLUMN_NUMBER,
         accessor: COLUMN_NUMBER
