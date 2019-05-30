@@ -3,3 +3,14 @@ body {
   padding: 0;
   font-family: sans-serif;
 }
+.cellInput{
+  width: 100%;
+  outline: none;
+  border: 0px;
+  background-color: rgba(1,1,1,0);
+}
+
+.panelButton{
+  margin-left: 10px;
+}
+
