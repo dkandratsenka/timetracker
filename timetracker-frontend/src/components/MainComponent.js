@@ -19,12 +19,10 @@ class Main extends Component {
     }
 
     render(){
-
-        console.log(this.props.users);
         if(this.props.users.error)
             return (
                 <div>
-                    <p>{this.props.users.error}</p>
+                    <p>{this.props.users.error + ""}</p>
                 </div>
             )
 
