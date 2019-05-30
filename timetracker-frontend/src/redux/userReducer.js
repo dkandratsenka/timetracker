@@ -1,21 +1,19 @@
-import {COLUMN_NAME,COLUMN_NUMBER,COLUMN_CHECKBOX} from "../utility/constant";
+import {USERS_LOADING,USERS_ERROR,USERS_FETCH} from "./action/actionTypes";
 
-const initialState = [{
-    [COLUMN_NAME]: "Vlad",
-    [COLUMN_NUMBER]: 1234,
-    [COLUMN_CHECKBOX]: true
-},{
-    [COLUMN_NAME]: "Bob",
-    [COLUMN_NUMBER]: 1234,
-    [COLUMN_CHECKBOX]: false
-},{
-    [COLUMN_NAME]: "Jon",
-    [COLUMN_NUMBER]: 1234,
-    [COLUMN_CHECKBOX]: true
-}]
+const initialState = {
+    isLoading: true,
+    error: null,
+    users: []
+}
 
 export const userReducer = (state = initialState, action) => {
     switch(action.type){
+        case USERS_LOADING:
+            return {...state, isLoading: true, error: null, users: []}
+        case USERS_ERROR:
+            return {...state, isLoading: false, error: action.payload, users: []}
+        case USERS_FETCH:
+            return {...state, isLoading: false, error: null, users: action.payload}
         default:
             return state;
     }
