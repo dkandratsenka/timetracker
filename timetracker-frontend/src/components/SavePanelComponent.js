@@ -30,8 +30,8 @@ class SavePanel extends Component {
     render(){
         return(
             <div style={this.state.style} ref={this.container}>
-                <Button color="primary" className="panelButton" onClick={(event) => this.props.saveButtonHandler(this.props.index)}  >Save</Button>
-                <Button color="primary" className="panelButton" onClick={(event) => this.props.resetButtonHandler(this.props.index)} >Reset</Button>
+                <Button color="primary" className="panelButton" onClick={(event) => this.props.saveButtonHandler(this.props.rowIndex)}  >Save</Button>
+                <Button color="primary" className="panelButton" onClick={this.props.resetButtonHandler} >Reset</Button>
             </div>
         )
     }

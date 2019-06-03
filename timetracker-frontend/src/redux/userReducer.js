@@ -16,8 +16,6 @@ export const userReducer = (state = initialState, action) => {
             return {...state, isLoading: false, error: null, users: action.payload}
         case USERS_SORT_BY_DATE:
             return {...state, isLoading: false, error: null, users: action.payload}
-        case USERS_SORT_BY_DATE:
-            return {...state, isLoading: false, error: null, users: action.payload}
         default:
             return state;
     }

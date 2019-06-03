@@ -18,7 +18,6 @@ class UsersTable extends Component {
     constructor(props){
       super(props);
       this.state = {
-        users: props.users,
         selectedRow: -1,
         startDate: new Date().getTime(),
         endDate: new Date().getTime(),
@@ -32,15 +31,8 @@ class UsersTable extends Component {
       this.sendCellId = this.sendCellId.bind(this);
     }
 
-    static getDerivedStateFromProps(nextProps,prevState){
-      if(nextProps.users !== prevState.users)
-        return {users: nextProps.users}
-
-      return null;
-    }
-
     shouldComponentUpdate(nextProps, nextState){
-      if(nextProps.users && nextProps.users !== this.props.users) return true;
+      if(nextProps.users !== this.props.users) return true;
       if(nextState.selectedRow === this.state.selectedRow) return false;
 
       return true;
@@ -53,25 +45,28 @@ class UsersTable extends Component {
     componentDidUpdate(){
       let element = document.getElementById(this.state.id);
       if(element && element.className.search(COLUMN_CELL_CLASS + this.state.selectedRow)) element.focus();
-
     }
 
-    resetButtonHandler(index){
-      let list = document.getElementsByClassName(COLUMN_CELL_CLASS + index);
+    resetButtonHandler(){
+      let list = document.getElementsByClassName(COLUMN_CELL_CLASS + this.state.selectedRow);
 
       for(let i = 0; i < 6; i++)
         list[i].value = this.state.row[i];
     }
 
     saveButtonHandler(index){
-      let list = document.getElementsByClassName(COLUMN_CELL_CLASS + index);
-      let user = new User(index,
+      let list = document.getElementsByClassName(COLUMN_CELL_CLASS + this.state.selectedRow);
+      let user = new User(this.state.selectedRow,
                           list[0].value,
-                          new Date(list[1].value).getTime(),
-                          list[2].value,list[3].value,
+                          list[1].value,
+                          list[2].value,
+                          list[3].value,
                           list[4].value, 
                           list[5].value)
       
+      this.setState({selectedRow: -1, id: -1});
+      this.props.users[index] = user
+
       this.props.fetchUpdateUser(user);
     }
 
@@ -134,8 +129,9 @@ class UsersTable extends Component {
             <div className="column" >
                 <ReactTable columns={columns(columsParams)} 
                             data={this.props.users}
-                            getTdProps = {this.clickListener} 
-                            filterable/>
+                            getTdProps={this.clickListener} 
+                            filterable
+                            defaultPageSize={20}/>
             </div>
           </div>
       )

@@ -1,5 +1,4 @@
 import React, {Component} from "react";
-import {Input} from "reactstrap";
 import SavePanel from "./SavePanelComponent";
 import { COLUMN_CELL_CLASS, COLUMN_STYLE } from "../../utility/userColumnName";
 
@@ -38,7 +37,8 @@ class Cell extends Component {
                         max={this.props.max} />
 
                 {selected ? <SavePanel  updateUser={this.props.updateUser} 
-                                        index = {this.props.index} 
+                                        index={this.props.index}
+                                        rowIndex={this.props.rowIndex} 
                                         resetButtonHandler={this.props.resetButtonHandler }
                                         saveButtonHandler={this.props.saveButtonHandler}/> : ""}
             </div>

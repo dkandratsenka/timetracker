@@ -31,6 +31,5 @@ export const fetchUpdateUser = (user) => dispatch => {
     params.body = JSON.stringify(user);
 
     return fetchTo(fetchUserUpdate, params)
-                                        .then(body => dispatch(actionUserSortByDate(body.object)))
                                         .catch(error => dispatch(actionUserError(error)))
 }

@@ -2,7 +2,7 @@ import React, {Component} from "react"
 import UsersTable from "./UsersTableComponent";
 import {connect} from "react-redux";
 import LoadingIndicator from "react-loading-indicator";
-import { fetchUsers,fetchUsersSortByDate } from "../redux/action/actionCreator";
+import { fetchUsers } from "../redux/action/actionCreator";
 
 const mapStateToProps = state => {
     return {users: state};
