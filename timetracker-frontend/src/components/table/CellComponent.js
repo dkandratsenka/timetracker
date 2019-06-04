@@ -7,16 +7,10 @@ class Cell extends Component {
 
     constructor(props){
         super(props);
-        this.state = {
-            value: props.value
-        };
 
-        this.onChangeListener = this.onChangeListener.bind(this);
         this.onClickHandler = this.onClickHandler.bind(this);
-    }
 
-    onChangeListener = event => {
-        this.setState({value: event.target.value});
+        this.input = React.createRef();
     }
 
     onClickHandler(){
@@ -24,15 +18,15 @@ class Cell extends Component {
     }
 
     render(){
-
         let selected = this.props.selected;
+        if(this.input.value) this.input.value = this.props.value;
         return(
             <div  >
                 <input  type={this.props.type} id={this.props.id} 
                         onClick={this.onClickHandler}  
                         className={`${COLUMN_STYLE} ${COLUMN_CELL_CLASS}${this.props.index}`}  
-                        value={this.state.value} 
-                        onChange={this.onChangeListener}
+                        ref={input => this.input = input}
+                        defaultValue={this.props.value}
                         min={this.props.min}
                         max={this.props.max} />
 
