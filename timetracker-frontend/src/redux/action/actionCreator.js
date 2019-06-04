@@ -11,7 +11,7 @@ var params = {
     credentials: "same-origin"
 }
 
-export const fetchUsers = page => dispatch => {
+export const fetchUsers = () => dispatch => {
     dispatch(actionUserLoading());
 
     return fetchTo(fetchUsersURL, params)

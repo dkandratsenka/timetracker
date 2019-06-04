@@ -1,5 +1,7 @@
 package by.ts.tt.entiry;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
@@ -10,6 +12,13 @@ import static by.ts.tt.utilities.UserTableConstants.*;
 @Table(name = USER_TABLE)
 public class User implements Serializable {
 
+    public User(){}
+
+    public User(int id, String name){
+        this.id = id;
+        this.name = name;
+    };
+
     @Id
     @Column(name = USER_ID)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,9 +27,13 @@ public class User implements Serializable {
     @Column(name = USER_NAME)
     private String name;
 
-
     @Column(name = USER_VACATION)
     private int vacation;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "u_id", insertable = false, updatable = false)
+    @Fetch(FetchMode.JOIN)
+    private Vacation userVacation;
 
     public int getId() {
         return id;
@@ -40,6 +53,14 @@ public class User implements Serializable {
 
     public void setVacation(int vacation) {
         this.vacation = vacation;
+    }
+
+    public Vacation getVac() {
+        return userVacation;
+    }
+
+    public void setVac(Vacation vac) {
+        this.userVacation = vac;
     }
 
     @Override

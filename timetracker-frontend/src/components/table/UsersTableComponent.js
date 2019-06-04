@@ -108,22 +108,6 @@ class UsersTable extends Component {
         endDate: this.state.endDate
       }
 
-
-         
-      const columns = [{
-        Header: COLUMN_NAME,
-        accessor: COLUMN_NAME,
-        Cell: props => <CellItem value={props.value}/>
-      }, {
-        Header: COLUMN_NUMBER,
-        accessor: COLUMN_NUMBER,
-        Cell: props => <CellItem value={props.value} />
-      }, {
-        Header: COLUMN_CHECKBOX,
-        accessor: COLUMN_CHECKBOX,
-        Cell: (props) => <CellItem value={props.value} selected={this.state.selectedRow === props.index} />
-      }]
-
       return (
           <div className="container" >
             <div className="column" >

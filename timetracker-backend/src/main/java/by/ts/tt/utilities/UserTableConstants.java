@@ -1,5 +1,7 @@
 package by.ts.tt.utilities;
 
+import static by.ts.tt.utilities.VacationTableContsants.*;
+
 public class UserTableConstants {
 
     public static final String USER_TABLE = "users";

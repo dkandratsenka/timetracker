@@ -5,20 +5,26 @@ public class ResponseMessage {
     private String message;
     private Object object;
 
+    public ResponseMessage(Object o, String message){
+        this.object = o;
+        this.message =message;
+    }
+
+    public ResponseMessage(Object o){
+        this(o,null);
+    }
+
+    public ResponseMessage(String message){
+        this(null,message);
+    }
 
     public String getMessage() {
         return message;
     }
 
+
     public Object getObject() {
         return object;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    public void setObject(Object object) {
-        this.object = object;
-    }
 }
