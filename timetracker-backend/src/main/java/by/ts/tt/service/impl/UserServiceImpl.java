@@ -1,13 +1,14 @@
 package by.ts.tt.service.impl;
 
+import by.ts.tt.DTO.UserVacationDTO;
 import by.ts.tt.entiry.User;
 import by.ts.tt.repository.UserRepository;
 import by.ts.tt.service.UserService;
+import by.ts.tt.utilities.converterListMapToListUserVacationDto;
 import org.springframework.stereotype.Service;
-
 import javax.annotation.Resource;
-import java.util.List;
-import java.util.Optional;
+import java.sql.Date;
+import java.util.*;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -15,21 +16,19 @@ public class UserServiceImpl implements UserService {
     @Resource
     private UserRepository userRepository;
 
-    @Override
-    public User addUser(User user) {
-        User saveUser = userRepository.save(user);
-        return saveUser;
+
+    public List<UserVacationDTO> getUserVacation() {
+        return converterListMapToListUserVacationDto.convert(userRepository.getUserVacation());
     }
 
     @Override
-    public Optional<User> getUserById(int id) {
-        return userRepository.findById(id);
+    public List<UserVacationDTO> sortUsersByDate(Date start, Date end) {
+        return converterListMapToListUserVacationDto.convert(userRepository.sortUsersByDate(start,end));
     }
 
     @Override
-    public List<User> getListUsers(int page) {
-        List<User> list = userRepository.getListUsers(page);
-        return list;
+    public void updateUser(User user) {
+        userRepository.updateUser(user.getName(),user.getId());
     }
 
 

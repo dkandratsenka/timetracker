@@ -1,3 +1,3 @@
-export const baseURL = "http://localhost:8080/";
-
-export const fetchUsersURL = baseURL + "users?page=";
+export const fetchUsersURL = "/users";
+export const fetchUsersSortURL = "/users/sort?start=";
+export const fetchUserUpdate = "/user/update";

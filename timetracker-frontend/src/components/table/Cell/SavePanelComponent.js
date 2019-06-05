@@ -20,7 +20,7 @@ class SavePanel extends Component {
         this.setState({
             style: {
                 position: "absolute",
-                left: pos.x,
+                left: pos.x * 0.85,
                 top: pos.y - 33
 
             }
@@ -30,8 +30,17 @@ class SavePanel extends Component {
     render(){
         return(
             <div style={this.state.style} ref={this.container}>
-                <Button color="primary" className="panelButton" onClick={this.props.updateUser}>Save</Button>
-                <Button color="primary" className="panelButton" onClick={(event) => {this.props.resetRow(); console.log(1);}}>Reset</Button>
+                <Button color="primary"
+                        id="saveButton"
+                        className="panelButton" 
+                        onClick={(event) => this.props.saveButtonHandler(this.props.rowIndex)} 
+                        >Save</Button>
+
+                <Button color="primary"
+                        id="resetButton"
+                        className="panelButton" 
+                        onClick={this.props.resetButtonHandler}
+                        >Reset</Button>
             </div>
         )
     }

@@ -1,21 +1,35 @@
-import { fetchUsersURL } from "../../utility/urlForFetch";
-import { actionUserError, actionUserLoading, actionUserFetch } from "./actionUsers";
+import { fetchUsersURL,fetchUsersSortURL,fetchUserUpdate } from "../../utility/urlForFetch";
+import { actionUserError, actionUserLoading, actionUserFetch, actionUserSortByDate } from "./actionUsers";
+import {fetchTo} from "../../utility/fetchTo";
 
-export const fetchUsers = page => dispatch => {
+var params = {
+    method: "GET",
+    body: null,
+    headers: {
+        "Content-Type" : "application/json"
+    },
+    credentials: "same-origin"
+}
+
+export const fetchUsers = () => dispatch => {
     dispatch(actionUserLoading());
 
-    return fetch(fetchUsersURL + page).then(response => {
-                                                if(response.ok)
-                                                    return response;
-                                                else{
-                                                    let error = new Error("Error: " + response.status + ": " + response.statusText );
-                                                    throw error;
-                                                }
-                                }, erorrMessage => {
-                                                let error = new Error(erorrMessage.message);
-                                                throw error;
-                                            })
-                            .then(response => response.json())
-                            .then(body => dispatch(actionUserFetch(body.object)))
-                            .catch(error => dispatch(actionUserError(error)))
+    return fetchTo(fetchUsersURL, params)
+                                        .then(body => dispatch(actionUserFetch(body.object)))
+                                        .catch(error => dispatch(actionUserError(error)))
+}
+
+export const fetchUsersSortByDate = (start, end) => dispatch => {
+    
+    return fetchTo(fetchUsersSortURL + start + "&end="+end, params)
+                                        .then(body => dispatch(actionUserSortByDate(body.object)))
+                                        .catch(error => dispatch(actionUserError(error)))
+}
+
+export const fetchUpdateUser = (user) => dispatch => {
+    params.method = "POST";
+    params.body = JSON.stringify(user);
+
+    return fetchTo(fetchUserUpdate, params)
+                                        .catch(error => dispatch(actionUserError(error)))
 }

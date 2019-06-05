@@ -121,11 +121,6 @@ public class ApplicationConfig extends WebSecurityConfigurerAdapter implements W
         };
     }
 
-    @Override
-    public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**");
-    }
-
     private AuthenticationEntryPoint getRestAuthenticationEntryPoint() {
         return new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED);
     }

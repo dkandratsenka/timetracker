@@ -1,4 +1,4 @@
-import {USERS_LOADING,USERS_ERROR,USERS_FETCH} from "./action/actionTypes";
+import {USERS_LOADING,USERS_ERROR,USERS_FETCH, USERS_SORT_BY_DATE} from "./action/actionTypes";
 
 const initialState = {
     isLoading: true,
@@ -13,6 +13,8 @@ export const userReducer = (state = initialState, action) => {
         case USERS_ERROR:
             return {...state, isLoading: false, error: action.payload, users: []}
         case USERS_FETCH:
+            return {...state, isLoading: false, error: null, users: action.payload}
+        case USERS_SORT_BY_DATE:
             return {...state, isLoading: false, error: null, users: action.payload}
         default:
             return state;

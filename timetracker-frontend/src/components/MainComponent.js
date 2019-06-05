@@ -1,5 +1,5 @@
 import React, {Component} from "react"
-import UsersTable from "./UsersTableComponent";
+import UsersTable from "./table/UsersTableComponent";
 import {connect} from "react-redux";
 import LoadingIndicator from "react-loading-indicator";
 import { fetchUsers } from "../redux/action/actionCreator";
@@ -9,13 +9,13 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = dispatch => ({
-    fetchUsers: (page) => dispatch(fetchUsers(page))
+    fetchUsers: () => dispatch(fetchUsers())
 })
 
 class Main extends Component {
 
     componentDidMount(){
-        this.props.fetchUsers(1);
+        this.props.fetchUsers();
     }
 
     render(){
