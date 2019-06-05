@@ -4,7 +4,7 @@ import { columns } from "../../utility/columsForTable";
 import {connect} from "react-redux";
 import { fetchUsersSortByDate, fetchUpdateUser} from "../../redux/action/actionCreator"
 import User from "../../utility/user";
-import { COLUMN_CELL_CLASS } from "../../utility/userColumnName";
+import { COLUMN_CELL_CLASS, CELL_INPUT_ID } from "../../utility/userColumnName";
 
 const mapDispatchToProps = dispatch => ({
   fetchUsersSortByDate: (start, end ) => dispatch(fetchUsersSortByDate(start, end)),
@@ -28,6 +28,7 @@ class UsersTable extends Component {
       this.saveButtonHandler = this.saveButtonHandler.bind(this);
       this.resetButtonHandler = this.resetButtonHandler.bind(this);
       this.dateListener = this.dateListener.bind(this);
+      this.globalOnChange = this.globalOnChange.bind(this);
       this.sendCellId = this.sendCellId.bind(this);
     }
 
@@ -42,9 +43,38 @@ class UsersTable extends Component {
       this.setState({id});
     }
 
+    globalOnChange(){
+      let resetButton = document.getElementById("resetButton");
+      let saveButton = document.getElementById("saveButton");
+
+      if(resetButton && saveButton) {
+        if(this.checkedButtonDisabledListener()){
+          saveButton.setAttribute("disabled", "disabled");
+          resetButton.setAttribute("disabled", "disabled");
+        }else{
+          saveButton.removeAttribute("disabled");
+          resetButton.removeAttribute("disabled");
+        }
+      }
+    }
+
     componentDidUpdate(){
-      let element = document.getElementById(this.state.id);
+      let element = document.getElementById(CELL_INPUT_ID + this.state.id);
       if(element && element.className.search(COLUMN_CELL_CLASS + this.state.selectedRow)) element.focus();
+
+      this.globalOnChange()
+    }
+
+    checkedButtonDisabledListener(){
+      let list = document.getElementsByClassName(COLUMN_CELL_CLASS + this.state.selectedRow);
+      
+      if(list.length == 6)
+        for(let i = 0; i < 6; i++){
+          if(list[i].value != this.state.row[i]) 
+            return false;   
+      }
+
+      return true;
     }
 
     resetButtonHandler(){
@@ -52,6 +82,8 @@ class UsersTable extends Component {
 
       for(let i = 0; i < 6; i++)
         list[i].value = this.state.row[i];
+
+      this.globalOnChange()
     }
 
     saveButtonHandler(index){
@@ -68,6 +100,7 @@ class UsersTable extends Component {
       this.props.users[index] = user
 
       this.props.fetchUpdateUser(user);
+      this.globalOnChange()
     }
 
     dateListener(startDate, endDate){
@@ -105,7 +138,8 @@ class UsersTable extends Component {
         sendCellId: this.sendCellId,
         selectedRow: this.state.selectedRow,
         startDate: this.state.startDate,
-        endDate: this.state.endDate
+        endDate: this.state.endDate,
+        globalOnChange: this.globalOnChange
       }
 
       return (

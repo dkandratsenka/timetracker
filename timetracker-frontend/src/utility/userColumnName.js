@@ -14,3 +14,9 @@ export const COLUMN_ACCESSOR_SIXTH = "comment";
 
 export const COLUMN_CELL_CLASS = "cellIndex";
 export const COLUMN_STYLE = "cellInput";
+export const CELL_ID = "CELL_ID"
+export const CELL_INPUT_ID = "CELL_INPUT_ID"
+export const CELL_TEXTAREA_ID = "TEXTAREA_ID"
+export const CELL_TEXTAREA_CLASS = "noBorder"
+export const CELL_TOOLTIP_ID = "TOOLTIP_ID"
+export const CELL_POPOVER_ID = "CELL_POPOVER_ID"
